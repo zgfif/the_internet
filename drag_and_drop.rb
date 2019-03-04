@@ -16,7 +16,7 @@ class DragAndDrop
 
     id2 = self.div(id: id2)
 
-    # id1.drag_and_drop_on id2
+    id1.drag_and_drop_on id2
   end
 end
 
