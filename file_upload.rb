@@ -6,11 +6,15 @@ class FileUpload
   include PageObject
 
   page_url('http://the-internet.herokuapp.com/upload')
+
+  button(:file_submit, id: 'file-submit')
+
+  h3(:file_uploaded, text: 'File Uploaded!')
 end
 
 browser = Watir::Browser.new :firefox
 
-file_up = FileUpload.new browser, true
+file = FileUpload.new browser, true
 
 file_name = 'lenna.png'
 
@@ -18,11 +22,10 @@ File.write(file_name, '')
 
 path = File.expand_path(file_name)
 
-file_up.file_field(id: 'file-upload').set path
+file.file_field(id: 'file-upload').set path
 
+file.file_submit
 
-file_up.button(id: 'file-submit').click
+p file.file_uploaded
 
-sleep 5
-
-file_up.quit
+file.quit

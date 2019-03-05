@@ -32,4 +32,8 @@ puts index.has_link? 'File Download'
 
 puts index.has_link? 'File Upload'
 
+puts index.has_link? 'Hovers'
+
+puts index.has_link? 'Dynamic Loading'
+
 index.quit
