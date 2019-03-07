@@ -16,12 +16,14 @@ class Index
   end
 end
 
-
 browser = Watir::Browser.new :firefox
 
 index = Index.new browser, true
 
-puts index.correct_title? 'The Internet' #test is this the index page
+#  TESTS
+
+# test is this the index page
+puts index.correct_title? 'The Internet'
 
 # testing existing links
 puts index.has_link? 'Basic Auth'

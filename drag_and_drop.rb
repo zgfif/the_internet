@@ -1,22 +1,26 @@
 require 'page-object'
 
-require 'watir'
+# require 'watir'
 
 class DragAndDrop
   include PageObject
 
   page_url('http://the-internet.herokuapp.com/drag_and_drop')
 
-  def has_div? uniq_id
-   self.div(id: uniq_id).present?
-  end
+  div(:a_div, id: 'column-a')
+
+  div(:b_div, id: 'column-b')
 
   def replace id1, id2
-    id1 = self.div(id: id1)
+    a = browser.div(id: id1)
 
-    id2 = self.div(id: id2)
+    b = browser.div(id: id2)
 
-    id1.drag_and_drop_on id2
+    a.drag_and_drop_on b
+  end
+
+  def validate_order
+    self.elements(class: 'column')[0].text == 'B'
   end
 end
 
@@ -26,12 +30,20 @@ drag = DragAndDrop.new browser, true
 
 # TESTS
 
-p drag.has_div? 'column-a' # validation the presence of 'A' div
+# validation the presence of 'A' div
+puts drag.a_div_element.present?
 
-p drag.has_div? 'column-b' # validation the presence of 'B' div
+# validation the presence of 'B' div
+puts drag.b_div_element.present?
 
-sleep 5
+sleep 1
 
+# drag A on B and drop
 drag.replace 'column-a', 'column-b'
+
+sleep 2
+
+# validation order of A and B div
+puts drag.validate_order
 
 drag.quit

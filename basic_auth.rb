@@ -18,7 +18,9 @@ auth = BasicAuth.new browser
 
 # TESTS
 
-#testing authentication with
+#testing authentication with 'login' and 'password'
 puts auth.authenticate? 'admin', 'admin'
+
+puts auth.authenticate? 'admin', '2admin'
 
 auth.quit
