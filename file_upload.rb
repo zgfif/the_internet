@@ -10,22 +10,38 @@ class FileUpload
   button(:file_submit, id: 'file-submit')
 
   h3(:file_uploaded, text: 'File Uploaded!')
+
+  file_field(:the_file, id: 'file-upload')
+
+  div(:uploaded_files, id: 'uploaded-files')
+
+  def upload_file file_name
+    File.write(file_name, '')
+
+    path = File.expand_path(file_name)
+
+    self.the_file_element.set path
+
+    self.file_submit
+  end
+
+  def valid_uploaded_file? file_name
+    self.uploaded_files == file_name
+  end
 end
 
 browser = Watir::Browser.new :firefox
 
 file = FileUpload.new browser, true
 
-file_name = 'lenna.png'
+file.upload_file 'watir_example.txt'
 
-File.write(file_name, '')
+# TESTS
 
-path = File.expand_path(file_name)
-
-file.file_field(id: 'file-upload').set path
-
-file.file_submit
-
+# successful uploading?
 p file.file_uploaded
+
+# correct file?
+p file.valid_uploaded_file? 'watir_example.txt'
 
 file.quit

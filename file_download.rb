@@ -28,7 +28,7 @@ class FileDownload
     end
   end
 
-  def remove_files
+  def remove_downloads
     FileUtils.rm_rf('temp/')
   end
 end
@@ -48,8 +48,12 @@ download.perform_downloads '.txt'
 
 sleep 5
 
+# TEST
+
+# Are the type of each file - 'txt'?
 download.validate_downloaded_types '.txt'
 
-download.remove_files
+# cleanup the temp folder with downloaded files
+download.remove_downloads
 
 download.quit
