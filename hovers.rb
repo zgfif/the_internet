@@ -7,39 +7,47 @@ class Hover
 
   page_url('http://the-internet.herokuapp.com/hovers')
 
+  # DIVs
   div(:first_img, class: 'figure', index: 0)
 
   div(:second_img, class: 'figure', index: 1)
 
   div(:third_img, class: 'figure', index: 2)
 
+  # LINKs
   link(:first_link, href: '/users/1')
 
   link(:second_link, href: '/users/2')
 
   link(:third_link, href: '/users/3')
+
+  def hover_above object
+    object.hover
+  end
+
+  def has_element? object
+    object.present?
+  end
 end
 
 browser = Watir::Browser.new :firefox
 
-hover_page = Hover.new browser, true
+obj = Hover.new browser, true
 
-hover_page.first_img_element.hover
+#TESTS
+obj.hover_above obj.first_img_element
 
-puts hover_page.first_link_element.present?
+# validate presence of first link
+puts obj.has_element? obj.first_link_element
 
-sleep 1
+obj.hover_above obj.second_img_element
 
-hover_page.second_img_element.hover
+# validate presence of second link
+puts obj.has_element? obj.second_link_element
 
-puts hover_page.second_link_element.present?
+obj.hover_above obj.third_img_element
 
-sleep 1
+# validate presence of third link
+puts obj.has_element? obj.third_link_element
 
-hover_page.third_img_element.hover
-
-puts hover_page.third_link_element.present?
-
-sleep 1
-
-hover_page.quit
+obj.quit
