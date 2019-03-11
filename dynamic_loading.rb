@@ -10,46 +10,52 @@ class DynamicLoading
   link(:example_first, href: '/dynamic_loading/1')
 
   link(:example_second, href: '/dynamic_loading/2')
+
+  button(:button_start, text: 'Start')
+
+  h4(:hello_world, text: 'Hello World!')
+
+  def validate_presence obj
+    obj.present?
+  end
+
+  # def presence_hello_world?
+    # self.hello_world_element.present?
+  # end
+
+  def perform_opening obj
+     obj
+
+     self.button_start
+
+     sleep 6
+  end
 end
 
 browser = Watir::Browser.new :firefox
 
 dynamic = DynamicLoading.new browser, true
 
-sleep 2
+# TESTS
 
-puts dynamic.example_first_element.present?
+# first link present?
+puts dynamic.validate_presence dynamic.example_first_element
 
+#second link present?
+puts dynamic.validate_presence dynamic.example_second_element
 
-puts dynamic.example_second_element.present?
+# opening the first link for hidden element
+dynamic.perform_opening dynamic.example_first
 
-
-dynamic.example_first
-
-
-sleep 2
-
-
-dynamic.div(id: 'start').button.click
-
-
-sleep 10
-
-puts dynamic.h4(text: 'Hello World!').present?
-
+# validate presence of hidden element
+puts dynamic.validate_presence dynamic.hello_world_element
 
 dynamic.back
 
+# opening the second link for dynamically loading element
+dynamic.perform_opening dynamic.example_second
 
-dynamic.example_second
-
-
-dynamic.div(id: 'start').button.click
-
-sleep 5
-
-puts dynamic.h4(text: 'Hello World!').present?
-
-sleep 5
+# validate presence of dynamically loaded element
+puts dynamic.validate_presence dynamic.hello_world_element
 
 dynamic.quit

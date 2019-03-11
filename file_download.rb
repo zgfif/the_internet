@@ -33,14 +33,20 @@ class FileDownload
   end
 end
 
-prefs = {
-  download: {
-    prompt_for_download: false,
-    default_directory: './temp'
-  }
-}
+download_directory = "#{Dir.pwd}/temp"
+download_directory.tr!('/', '\\') if Selenium::WebDriver::Platform.windows?
 
-browser = Watir::Browser.new :chrome, options: { prefs: prefs }
+profile = Selenium::WebDriver::Firefox::Profile.new
+
+profile['browser.download.folderList'] = 2 # custom location
+
+profile['browser.download.dir'] = download_directory
+
+profile['browser.helperApps.neverAsk.saveToDisk'] = 'application/octet-stream'
+
+browser = Watir::Browser.new :firefox, profile: profile
+
+
 
 download = FileDownload.new browser, true
 
