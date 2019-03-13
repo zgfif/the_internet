@@ -26,16 +26,14 @@ index = Index.new browser, true
 puts index.correct_title? 'The Internet'
 
 # testing existing links
-puts index.has_link? 'Basic Auth'
+links = ['Basic Auth', 'Drag and Drop', 'File Download', 'File Upload', 'Hovers', 'Dynamic Loading']
 
-puts index.has_link? 'Drag and Drop'
-
-puts index.has_link? 'File Download'
-
-puts index.has_link? 'File Upload'
-
-puts index.has_link? 'Hovers'
-
-puts index.has_link? 'Dynamic Loading'
+links.each do |link|
+  if index.has_link? link
+    puts "Test 6.1: has link #{link}. PASSED"
+  else
+    puts "Test 6.1: hasn't link #{link}. NOT PASSED"
+  end
+end
 
 index.quit

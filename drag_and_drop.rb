@@ -44,6 +44,10 @@ drag.replace 'column-a', 'column-b'
 sleep 2
 
 # validation order of A and B div
-puts drag.validate_order
+if drag.validate_order
+  puts 'Test 2.1: drag and drop elements is PASSED'
+else
+  puts 'Test 2.1: drag and drop elements is NOT PASSED'
+end
 
 drag.quit

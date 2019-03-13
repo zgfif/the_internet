@@ -19,8 +19,16 @@ auth = BasicAuth.new browser
 # TESTS
 
 #testing authentication with 'login' and 'password'
-puts auth.authenticate? 'admin', 'admin'
+if auth.authenticate? 'admin', 'admin'
+  puts 'Test 1.1: valid login and password is PASSED'
+else
+  puts 'Test 1.1: valid login and password is NOT PASSED'
+end
 
-puts auth.authenticate? 'admin', '2admin'
+if auth.authenticate? 'admin', '2admin'
+  puts 'Test 1.2: invalid login and password is NOT PASSED'
+else
+  puts 'Test 1.2: invalid login and password is PASSED'
+end
 
 auth.quit

@@ -38,16 +38,28 @@ obj = Hover.new browser, true
 obj.hover_above obj.first_img_element
 
 # validate presence of first link
-puts obj.has_element? obj.first_link_element
+if obj.has_element? obj.first_link_element
+  puts "Test 5.1: user1 is PASSED"
+else
+  puts 'Test 5.1: user1 is NOT PASSED'
+end
 
 obj.hover_above obj.second_img_element
 
 # validate presence of second link
-puts obj.has_element? obj.second_link_element
+if obj.has_element? obj.second_link_element
+  puts 'Test 5.1: user2 is PASSED'
+else
+  puts 'Test 5.1: user2 is NOT PASSED'
+end
 
 obj.hover_above obj.third_img_element
 
 # validate presence of third link
-puts obj.has_element? obj.third_link_element
+if obj.has_element? obj.third_link_element
+  puts 'Test 5.1: user3 is PASSED'
+else
+  puts 'Test 5.1: user3 is NOT PASSED'
+end
 
 obj.quit

@@ -19,11 +19,12 @@ class FileDownload
   end
 
   def validate_downloaded_types type
+    p "Test 4.1: type #{type}"
     Dir["temp/*"].each do |file|
       if file.match type
-        puts true
+        puts " Correct type of #{file}. is PASSED"
       else
-        puts false
+        puts " Incorrect type of #{file}.is NOT PASSED"
       end
     end
   end

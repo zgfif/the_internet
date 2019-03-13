@@ -7,9 +7,9 @@ class DynamicLoading
 
   page_url('http://the-internet.herokuapp.com/dynamic_loading')
 
-  link(:example_first, href: '/dynamic_loading/1')
+  link(:link_hidden, href: '/dynamic_loading/1')
 
-  link(:example_second, href: '/dynamic_loading/2')
+  link(:link_dynamic, href: '/dynamic_loading/2')
 
   button(:button_start, text: 'Start')
 
@@ -19,16 +19,12 @@ class DynamicLoading
     obj.present?
   end
 
-  # def presence_hello_world?
-    # self.hello_world_element.present?
-  # end
-
   def perform_opening obj
      obj
+  end
 
-     self.button_start
-
-     sleep 6
+  def press_start
+    self.button_start
   end
 end
 
@@ -39,23 +35,48 @@ dynamic = DynamicLoading.new browser, true
 # TESTS
 
 # first link present?
-puts dynamic.validate_presence dynamic.example_first_element
+puts dynamic.validate_presence dynamic.link_hidden_element
 
 #second link present?
-puts dynamic.validate_presence dynamic.example_second_element
+puts dynamic.validate_presence dynamic.link_dynamic_element
+
 
 # opening the first link for hidden element
-dynamic.perform_opening dynamic.example_first
+dynamic.perform_opening dynamic.link_hidden
 
 # validate presence of hidden element
-puts dynamic.validate_presence dynamic.hello_world_element
+before_start = dynamic.validate_presence dynamic.hello_world_element
+
+dynamic.press_start
+
+sleep 6
+
+after_start = dynamic.validate_presence dynamic.hello_world_element
+
+if !before_start&after_start
+  puts 'Test 3.1: Test for hidden element is PASSED'
+else
+  puts 'Test 3.1: Test for hidden element is NOT PASSED'
+end
 
 dynamic.back
 
 # opening the second link for dynamically loading element
-dynamic.perform_opening dynamic.example_second
+dynamic.perform_opening dynamic.link_dynamic
 
 # validate presence of dynamically loaded element
-puts dynamic.validate_presence dynamic.hello_world_element
+before_start = dynamic.validate_presence dynamic.hello_world_element
+
+dynamic.press_start
+
+sleep 6
+
+after_start = dynamic.validate_presence dynamic.hello_world_element
+
+if !before_start&after_start
+  puts 'Test 3.2: Test for dynamic element is PASSED'
+else
+  puts 'Test 3.2: Test for dynamic element is NOT PASSED'
+end
 
 dynamic.quit
